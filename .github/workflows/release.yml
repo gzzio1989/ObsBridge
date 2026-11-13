@@ -1,0 +1,53 @@
+name: Build and Package (Windows & macOS)
+
+on:
+  push:
+    branches: [main, master]
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-macos:
+    name: macOS Universal (VST3 & AU)
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure macOS Universal Binary (arm64 + x86_64)
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0 \
+            '-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64'
+
+      - name: Build VST3, AU, and Verifier
+        run: cmake --build build --config Release --parallel
+
+      - name: Run Verification Suite
+        run: ./build/verify_obs_bridge
+
+      - name: Verify Universal Binary Architectures
+        run: |
+          lipo -archs "build/SyncroomObsBridge_artefacts/Release/VST3/Syncroom OBS Bridge.vst3/Contents/MacOS/Syncroom OBS Bridge"
+          lipo -archs "build/SyncroomObsBridge_artefacts/Release/AU/Syncroom OBS Bridge.component/Contents/MacOS/Syncroom OBS Bridge"
+
+      - name: Package macOS Universal ZIP
+        run: python3 tools/package_macos.py --build build --out release/macos
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: SyncroomOBSBridge-macOS
+          path: |
+            release/macos/*.zip
+            release/macos/*.sha256
+          if-no-files-found: error
+
+      - name: Attach macOS Universal ZIP to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${GITHUB_REF_NAME}" release/macos/*.zip release/macos/*.sha256 --clobber

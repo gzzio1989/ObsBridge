@@ -1,0 +1,6 @@
+build/
+build_*/
+release/
+*.user
+.vs/
+.DS_Store

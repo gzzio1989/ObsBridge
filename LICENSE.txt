@@ -1,0 +1,11 @@
+Syncroom OBS Bridge
+Copyright (c) 2026 Gzzio. All rights reserved.
+
+【使用許諾】
+本ソフトウェア（Syncroom OBS Bridge）は、音楽制作・オンラインセッション（SYNCROOM等）・ライブ配信（OBS Studio等）の目的で無償または配布者の定める条件に従いご利用いただけます。
+本ソフトウェアの再配布・改変・逆コンパイルについては配布者の許諾に従ってください。
+本ソフトウェアは「現状のまま（AS IS）」で提供され、利用により生じたいかなる損害についても作者は責任を負いません。
+
+【第三者ライブラリ表記】
+本プラグインは JUCE フレームワーク (https://juce.com/) を使用して構築されています。
+JUCE is copyright (c) Raw Material Software Limited.

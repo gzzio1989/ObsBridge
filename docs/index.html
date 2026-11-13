@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syncroom OBS Bridge — 無償配布ダウンロード (Windows / Mac)</title>
+<meta name="description" content="DAW(ASIO/CoreAudio)の低遅延モニターはそのまま、SYNCROOMの自分＋他メンバー全員のミックス音をOBSへ直接送る無料VST3/AUプラグイン。">
+<meta property="og:title" content="Syncroom OBS Bridge — 無料VST3/AUプラグイン (Win/Mac)">
+<meta property="og:description" content="DAWのMaster(syncroom_vst_bridge2の下)に挿すだけで、ASIO追加遅延0.0msのままSYNCROOM全員の音をOBSへ送れます。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<style>
+  :root {
+    --bg: #0d111a;
+    --card: #161c2a;
+    --border: #27314a;
+    --accent: #2ee59d;
+    --accent-dark: #102a22;
+    --text: #eef2ff;
+    --muted: #9aa6c0;
+    --warn: #ffb84d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", system-ui, sans-serif;
+    background: radial-gradient(circle at top, #182238 0%, var(--bg) 55%);
+    color: var(--text);
+    line-height: 1.75;
+    margin: 0;
+    padding: 36px 16px 64px;
+  }
+  .container { max-width: 840px; margin: 0 auto; }
+  .badge {
+    display: inline-block;
+    background: var(--accent-dark);
+    color: var(--accent);
+    border: 1px solid rgba(46,229,157,0.4);
+    border-radius: 999px;
+    padding: 3px 14px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  h1 { font-size: 2rem; margin: 0 0 8px; letter-spacing: 0.01em; }
+  .lead { color: var(--muted); font-size: 1.05rem; margin-bottom: 28px; }
+  .dl-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .dl-btn {
+    display: block;
+    text-decoration: none;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: transform 0.12s ease, border-color 0.12s ease;
+  }
+  .dl-btn.primary {
+    background: linear-gradient(135deg, #1b3b32 0%, #162336 100%);
+    border-color: var(--accent);
+  }
+  .dl-btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .dl-title { color: #fff; font-weight: 700; font-size: 1.05rem; display: block; margin-bottom: 4px; }
+  .dl-sub { color: var(--muted); font-size: 0.85rem; display: block; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-bottom: 18px;
+  }
+  h2 {
+    font-size: 1.2rem;
+    margin-top: 0;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+  }
+  code {
+    background: #0b0e15;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-family: Consolas, Menlo, monospace;
+    color: #8be9fd;
+  }
+  ol, ul { padding-left: 22px; margin-bottom: 0; }
+  li { margin-bottom: 8px; }
+  .warn {
+    background: rgba(255, 184, 77, 0.08);
+    border: 1px solid rgba(255, 184, 77, 0.35);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 14px;
+    color: #ffe2b3;
+    font-size: 0.94rem;
+  }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 36px; }
+  footer a { color: var(--accent); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <span class="badge">無料配布 / Free VST3 &amp; AU Plugin</span>
+  <h1>Syncroom OBS Bridge v1.0.0</h1>
+  <p class="lead">
+    DAW（ASIO / CoreAudio）の超低遅延モニター（追加遅延 <strong>0.0 ms</strong>）はそのまま、<br>
+    <strong>自分の歌声・楽器 ＋ SYNCROOM他メンバー全員の音</strong> を OBS Studio へ直接流し込むブリッジプラグイン。
+  </p>
+
+  <div class="dl-grid">
+    <a class="dl-btn primary" href="https://github.com/gzzio1989/ObsBridge/releases/latest/download/SyncroomOBSBridge_Setup_v1.0.0.exe">
+      <span class="dl-title">⬇ Windows インストーラー版 (.exe)</span>
+      <span class="dl-sub">Windows 10 / 11 (64-bit) 推奨・ワンクリック導入</span>
+    </a>
+    <a class="dl-btn" href="https://github.com/gzzio1989/ObsBridge/releases/latest/download/SyncroomOBSBridge_v1.0.0_Windows_x64.zip">
+      <span class="dl-title">⬇ Windows ポータブル版 (.zip)</span>
+      <span class="dl-sub">VST3手動コピー用・ランタイム不要</span>
+    </a>
+    <a class="dl-btn" href="https://github.com/gzzio1989/ObsBridge/releases/latest/download/SyncroomOBSBridge_v1.0.0_macOS_Universal.zip">
+      <span class="dl-title">⬇ macOS Universal 版 (.zip)</span>
+      <span class="dl-sub">Apple Silicon &amp; Intel 対応 (VST3 + Logic用AU)</span>
+    </a>
+  </div>
+
+  <div class="card">
+    <h2>かんたん3ステップの使い方</h2>
+    <ol>
+      <li><strong>インストールする</strong><br>
+          Windowsは <code>.exe</code> を実行するだけ。Macは <code>.vst3</code>（Logic Proは <code>.component</code>）をプラグインフォルダへ入れます（Macは無料の <a href="https://existential.audio/blackhole/" style="color:#2ee59d;">BlackHole 2ch</a> 導入を推奨）。</li>
+      <li><strong>DAWのMasterトラック（<code>syncroom_vst_bridge2</code> の下）に挿す</strong><br>
+          MasterトラックのFXチェーンで <code>syncroom_vst_bridge2</code> の<strong>下（後段）</strong>に追加すると、自動で <code>Yamaha SYNCROOM Driver</code>（または <code>VB-CABLE</code> / <code>BlackHole</code>）へ送信が始まります。</li>
+      <li><strong>OBSの音声設定で選ぶ</strong><br>
+          OBSの「設定 → 音声」のマイク/補助音声で <code>ライン (Yamaha SYNCROOM Driver (WDM))</code>（Macは <code>BlackHole 2ch</code>）を選べばそのままメーターが振れます！</li>
+    </ol>
+    <div class="warn">
+      <strong>💡 ポイント：</strong> <code>syncroom_vst_bridge2</code> の「下（後段）」に挿すことで、自分の声だけでなく <strong>SYNCROOMルーム内の他のメンバー全員の音</strong> もまとめてOBSに入ります。48kHz⇄44.1kHzのレート差も自動で滑らかに変換します。
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>主な特徴</h2>
+    <ul>
+      <li><strong>本線ASIOの追加遅延 0.0 ms</strong>：ロックフリー転送のため、ヘッドホンモニターやオーディオIF側のレイテンシ・プツプツに一切影響しません。</li>
+      <li><strong>サンプルレート＆クロックずれ自動吸収</strong>：DAWが48000Hz・ドライバ側が44100Hzのままでも、設定変更なしで長時間ノイズレスに送信します。</li>
+      <li><strong>OBS側だけ独立ミュート＆音量調整</strong>：ヘッドホンのモニター音は止めずに、OBS配信側への送信音量調整・一時ミュートが可能です。</li>
+    </ul>
+  </div>
+
+  <footer>
+    Created by <a href="https://gzzio1989.github.io/">G'zzio</a> · <a href="https://github.com/gzzio1989/ObsBridge/releases">GitHub Releases</a>
+  </footer>
+</div>
+</body>
+</html>

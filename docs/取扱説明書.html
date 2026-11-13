@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Syncroom OBS Bridge 取扱説明書 (Windows / Mac 対応)</title>
+<style>
+  :root {
+    --bg: #0f131c;
+    --card: #181e2c;
+    --border: #2a334a;
+    --accent: #2ee59d;
+    --text: #eef2ff;
+    --muted: #9aa6c0;
+    --warn: #ffb84d;
+  }
+  body {
+    font-family: "Yu Gothic UI", "Hiragino Sans", "Meiryo", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    margin: 0;
+    padding: 32px 16px;
+  }
+  .container { max-width: 860px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.3rem; color: #fff; }
+  .subtitle { color: var(--muted); margin-bottom: 2rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 26px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin-top: 0;
+    border-left: 4px solid var(--accent);
+    padding-left: 12px;
+  }
+  h3 { font-size: 1.05rem; color: var(--accent); margin-bottom: 6px; }
+  code {
+    background: #0b0e15;
+    padding: 2px 7px;
+    border-radius: 5px;
+    font-family: Consolas, Menlo, monospace;
+    color: #8be9fd;
+  }
+  ol, ul { padding-left: 22px; }
+  li { margin-bottom: 6px; }
+  .note {
+    background: rgba(46, 229, 157, 0.08);
+    border: 1px solid rgba(46, 229, 157, 0.35);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+  }
+  .warn {
+    background: rgba(255, 184, 77, 0.08);
+    border: 1px solid rgba(255, 184, 77, 0.35);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    color: #ffe2b3;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Syncroom OBS Bridge v1.0.0 取扱説明書</h1>
+  <div class="subtitle">DAW（ASIO / CoreAudio）のマスタートラック音声を、遅延ゼロのまま OBS Studio 等の配信ソフトへ送るブリッジプラグイン</div>
+
+  <div class="card">
+    <h2>1. このプラグインでできること</h2>
+    <ul>
+      <li>REAPER / Cubase / Studio One / Logic Pro などの <strong>ASIO（またはCoreAudio）出力を一切邪魔せず（追加遅延 0.0 ms）</strong>、同じミックス音を仮想オーディオドライバへ同時に流し込みます。</li>
+      <li>DAWの <strong>Masterトラックで <code>syncroom_vst_bridge2</code> の「下（後段）」</strong> に挿すだけで、<strong>自分のボーカル・楽器音 ＋ SYNCROOMの他のメンバー全員の音</strong> がそのままOBSに入ります。</li>
+      <li>DAW側（例：48000 Hz）と仮想ドライバ側（例：44100 Hz）のサンプルレートが違っていても、内蔵の自動リサンプラ＆クロックずれ吸収エンジンにより、<strong>プツプツ音なしで長時間安定送信</strong>します。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>2. インストール方法</h2>
+    <h3>Windows 10 / 11 (64-bit)</h3>
+    <ul>
+      <li><strong>インストーラー版（推奨）</strong>：<code>SyncroomOBSBridge_Setup_v1.0.0.exe</code> をダブルクリックして実行すると、標準VST3フォルダへ自動配置されます（VC++ランタイム等の追加導入は不要です）。</li>
+      <li><strong>ZIPポータブル版</strong>：展開した中にある <code>Syncroom OBS Bridge.vst3</code> フォルダごと、<code>C:\Program Files\Common Files\VST3\</code> へコピーしてください。</li>
+      <li><strong>必要な仮想ドライバ</strong>：SYNCROOM2 導入済みなら最初から入っている <code>Yamaha SYNCROOM Driver (WDM)</code> を自動検出します。SYNCROOM未導入のPCでは無料の <a href="https://vb-audio.com/Cable/" style="color:#2ee59d;">VB-CABLE</a> 等を入れるだけで自動認識します。</li>
+    </ul>
+
+    <h3>macOS (macOS 11 Big Sur 以降 / Apple Silicon M1〜M4 &amp; Intel 両対応)</h3>
+    <ul>
+      <li><strong>必要な仮想ドライバ（初回のみ）</strong>：Mac版SYNCROOMには仮想ドライバが同梱されないため、無料の <a href="https://existential.audio/blackhole/" style="color:#2ee59d;">BlackHole 2ch</a> などを入れておくと自動で接続されます。</li>
+      <li><strong>VST3版</strong>（REAPER / Cubase / Studio One / Ableton Live 等）：<code>Syncroom OBS Bridge.vst3</code> を <code>/Library/Audio/Plug-Ins/VST3/</code> にコピーします。</li>
+      <li><strong>AU版</strong>（Logic Pro / GarageBand 等）：<code>Syncroom OBS Bridge.component</code> を <code>/Library/Audio/Plug-Ins/Components/</code> にコピーします。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>3. かんたん3ステップ設定（DAW ＆ OBS）</h2>
+    <ol>
+      <li><strong>DAWのMasterトラックを開く</strong><br>
+          MasterトラックのFXチェーンで、<code>syncroom_vst_bridge2</code> の <strong>すぐ下（後段）</strong> に <code>Syncroom OBS Bridge</code> を追加します。<br>
+          （※SYNCROOMを使わずDAW単体の音をOBSへ送りたい場合も、Masterトラックの一番最後に挿してください）</li>
+      <li><strong>緑ランプの点灯を確認する</strong><br>
+          プラグイン画面に緑色の丸ランプと <code>送信中: ライン (Yamaha SYNCROOM Driver (WDM))</code>（Macでは <code>BlackHole 2ch</code> 等）が表示されれば送信開始されています。</li>
+      <li><strong>OBS Studio の音声設定で選ぶ</strong><br>
+          OBSの <strong>設定 → 音声</strong> で、<code>マイク/補助音声</code>（または音声入力キャプチャ）に <strong>同じ仮想ドライバ名</strong>（Windowsなら <code>ライン (Yamaha SYNCROOM Driver (WDM))</code>、Macなら <code>BlackHole 2ch</code>）を選択します。</li>
+    </ol>
+    <div class="warn">
+      <strong>⚠️ ワンポイント注意：</strong><br>
+      ボーカルトラック単体や、Masterトラックの <code>syncroom_vst_bridge2</code> より「上（前段）」に挿すと自分の声だけがOBSに送られます。<strong>SYNCROOMの他のメンバー全員の音もOBSに入れるには、必ず Masterトラックの <code>syncroom_vst_bridge2</code> の「下（後段）」に挿してください。</strong>
+    </div>
+  </div>
+</div>
+</body>
+</html>
